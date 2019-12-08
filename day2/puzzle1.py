@@ -1,3 +1,4 @@
+import file_utils
 import util
 
 
@@ -36,6 +37,6 @@ def calculate_int_code(ops, noun, verb):
 
 
 if __name__ == "__main__":
-    operations = util.read_comma_delimited_ints("input02a.txt")
+    operations = file_utils.read_comma_delimited_ints("input02a.txt")
     result = calculate_int_code(operations, 12, 2)
     print(result)

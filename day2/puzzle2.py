@@ -1,11 +1,11 @@
 import day2.puzzle1
-import util
+import file_utils
 
 MAGIC_NUMBER = 19690720
 
 
 if __name__ == "__main__":
-    operations = util.read_comma_delimited_ints("input02a.txt")
+    operations = file_utils.read_comma_delimited_ints("input02a.txt")
     solution = None
     for noun in range(0, 99):
         for verb in range(0, 99):
