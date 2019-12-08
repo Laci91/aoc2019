@@ -1,6 +1,10 @@
 from collections import Counter
 
 
+def convert(i, j, k, l, m, n):
+    return i * 100000 + j * 10000 + k * 1000 + l * 100 + m * 10 + n
+
+
 def get_number_of_passwords(low, high):
     low_str = str(low)
     digits = [int(d) for d in low_str]
