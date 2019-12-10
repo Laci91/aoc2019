@@ -1,3 +1,8 @@
+def read(filename):
+    with open(filename, "r") as f:
+        return f.read()
+
+
 def read_lines(filename):
     with open(filename, "r") as f:
         return f.read().splitlines()
