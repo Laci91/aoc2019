@@ -1,4 +1,4 @@
-import util
+import file_utils
 
 
 def calculate_fuel_req(weight):
@@ -14,6 +14,6 @@ def calculate_full_fuel_req(current_weight, full_fuel_req):
 
 
 if __name__ == "__main__":
-    lines = util.read_ints("input01b.txt")
+    lines = file_utils.read_ints("input01b.txt")
     print(sum([calculate_full_fuel_req(weight, 0) for weight in lines]))
 
