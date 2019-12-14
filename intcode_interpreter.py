@@ -149,7 +149,9 @@ class IntcodeInterpreter:
         self.input_pointer = 0
 
     def get_outputs(self):
-        return self.outputs
+        outputs = self.outputs
+        self.outputs = []
+        return outputs
 
     def resize_memory(self, new_size):
         new_memory = list(itertools.repeat(0, new_size))
