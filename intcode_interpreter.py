@@ -23,6 +23,7 @@ class IntcodeInterpreter:
         return self.memory
 
     def process_next_code(self):
+        logging.debug("Instruction pointer is at %s" % self.instruction_pointer)
         op_code_string = "{:05d}".format(self.memory[self.instruction_pointer])
         self.instruction_pointer += 1
         parameter_modes = [int(m) for m in op_code_string[:3]]

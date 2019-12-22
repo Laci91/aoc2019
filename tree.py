@@ -6,6 +6,9 @@ class Node:
         self.children = []
         self.value = None
 
+    def __init__(self, parameters):
+        self.__init__(parameters[0])
+
     def get_value(self):
         return self.value
 
@@ -47,10 +50,39 @@ class Node:
             child.breadth_first_walk(value_function, propagator_function)
 
 
+def build_tree(items, node_factory):
+    nodes = {}
+    parent_relationships = {}
+    root = None
+    for item in items:
+        parent_item = item[0]
+        child_item = item[1]
+        nodes[child_item] = node_factory([None, child_item])
+        if parent_item in parent_relationships:
+            parent_relationships[parent_item].append(child_item)
+        else:
+            parent_relationships[parent_item] = [child_item]
+
+    for parent in parent_relationships:
+        if parent not in nodes:
+            root = node_factory([None, parent])
+            nodes[parent] = root
+
+        for child in parent_relationships[parent]:
+            nodes[child].add_parent(nodes[parent])
+
+    if root is None:
+        raise Exception("Root element not found in tree")
+    return root
+
+
 class PlanetOrbitNode(Node):
     def __init__(self, parent, name):
         super().__init__(parent)
         self.name = name
+
+    def __init__(self, parameters):
+        self.__init__(parameters[0], parameters[1])
 
     def logger(self):
         print("Function invoked on %s, value is %d" % (self.name, self.value))
