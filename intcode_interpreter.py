@@ -1,3 +1,4 @@
+import copy
 import itertools
 import logging
 from enum import Enum
@@ -19,10 +20,20 @@ class IntcodeInterpreter:
         self.finished = False
         self.outputs = []
 
+    @staticmethod
+    def from_computer(computer):
+        new_computer = IntcodeInterpreter(copy.deepcopy(computer.memory), [])
+        new_computer.instruction_pointer = computer.instruction_pointer
+        new_computer.relative_base = computer.relative_base
+        new_computer.inputs = []
+        new_computer.waiting_for_input = False
+        return new_computer
+
     def get_memory(self):
         return self.memory
 
     def process_next_code(self):
+        logging.debug("Instruction pointer is at %s" % self.instruction_pointer)
         op_code_string = "{:05d}".format(self.memory[self.instruction_pointer])
         self.instruction_pointer += 1
         parameter_modes = [int(m) for m in op_code_string[:3]]
@@ -149,7 +160,9 @@ class IntcodeInterpreter:
         self.input_pointer = 0
 
     def get_outputs(self):
-        return self.outputs
+        outputs = self.outputs
+        self.outputs = []
+        return outputs
 
     def resize_memory(self, new_size):
         new_memory = list(itertools.repeat(0, new_size))
