@@ -1,3 +1,4 @@
+import copy
 import itertools
 import logging
 from enum import Enum
@@ -18,6 +19,15 @@ class IntcodeInterpreter:
         self.waiting_for_input = False
         self.finished = False
         self.outputs = []
+
+    @staticmethod
+    def from_computer(computer):
+        new_computer = IntcodeInterpreter(copy.deepcopy(computer.memory), [])
+        new_computer.instruction_pointer = computer.instruction_pointer
+        new_computer.relative_base = computer.relative_base
+        new_computer.inputs = []
+        new_computer.waiting_for_input = False
+        return new_computer
 
     def get_memory(self):
         return self.memory
