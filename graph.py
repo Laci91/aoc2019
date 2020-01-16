@@ -4,6 +4,9 @@ class Node:
         self.value = None
         self.name = name
 
+    def __repr__(self):
+        return "%s = %s, %s" % (self.name, self.value, [c.name for c in self.connections])
+
     def get_value(self):
         return self.value
 
@@ -24,6 +27,9 @@ class Node:
     def breadth_first_walk(self, function):
         self.breadth_first_walk_internal(self, function, True)
 
+    def breadth_first_walk_2(self, function, goal_function_improved):
+        self.breadth_first_walk_internal_2(self, function, goal_function_improved, True)
+
     def breadth_first_walk_internal(self, messenger_node, function, starting_point):
         if starting_point or self.value is None:
             self.value = function(messenger_node)
@@ -31,3 +37,11 @@ class Node:
 
             for child in self.connections:
                 child.breadth_first_walk_internal(self, function, False)
+
+    def breadth_first_walk_internal_2(self, messenger_node, function, goal_function_improved, starting_point):
+        if starting_point or self.value is None or goal_function_improved(messenger_node, self.value):
+            self.value = function(messenger_node)
+            print("Set value %d for node %s" % (self.value, self.name))
+
+            for child in self.connections:
+                child.breadth_first_walk_internal_2(self, function, goal_function_improved, False)

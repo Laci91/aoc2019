@@ -3,6 +3,8 @@ import itertools
 import logging
 from enum import Enum
 
+import file_utils
+
 
 class ParameterMode(Enum):
     POSITION = 0,
@@ -28,6 +30,11 @@ class IntcodeInterpreter:
         new_computer.inputs = []
         new_computer.waiting_for_input = False
         return new_computer
+
+    @staticmethod
+    def from_file(file_name):
+        memory = file_utils.read_comma_delimited_ints(file_name)
+        return IntcodeInterpreter(memory, [])
 
     def get_memory(self):
         return self.memory
